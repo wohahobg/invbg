@@ -307,18 +307,18 @@ function getClientCustomFileds($clientData)
     ];
     if ($progress && $clientData->customFieldValues) {
         foreach ($clientData->customFieldValues as $field) {
-            if (isset($CUSTOM_FILEDS[$field->customField->fieldname])
-                && $CUSTOM_FILEDS[$field->customField->fieldname] = 'dds_field') {
-                $dds = $field->value;
+            if (isset($CUSTOM_FILEDS[$field->customField->fieldname])){
+                if ($CUSTOM_FILEDS[$field->customField->fieldname] == 'dds_field') {
+                    $dds = $field->value;
+                }
+                if ($CUSTOM_FILEDS[$field->customField->fieldname] == 'mol_field') {
+                    $mol = $field->value;
+                }
+                if ($CUSTOM_FILEDS[$field->customField->fieldname] == 'bulstat_field') {
+                    $bulstat = $field->value;
+                }
             }
-            if (isset($CUSTOM_FILEDS[$field->customField->fieldname])
-                && $CUSTOM_FILEDS[$field->customField->fieldname] = 'mol_field') {
-                $mol = $field->value;
-            }
-            if (isset($CUSTOM_FILEDS[$field->customField->fieldname])
-                && $CUSTOM_FILEDS[$field->customField->fieldname] = 'bulstat_field') {
-                $bulstat = $field->value;
-            }
+
         }
     }
 
