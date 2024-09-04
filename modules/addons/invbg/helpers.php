@@ -153,8 +153,9 @@ function createInvBgDocument($invoiceData, $clientData, $itemsData, $is_person, 
 //    'payment_amount_reduction' => '',
 //    'payment_amount_total' => '',
         'items' => array_map(function ($item) {
+            $name = strlen($item->description) > 300 ? substr($item->description, 0, 300) : $item->description;
             return [
-                'name' => $item->description,
+                'name' => $name,
                 'price' => $item->amount,
                 //'price_total' => $item->price_total,
                 'quantity_unit' => 'бр.',
@@ -174,8 +175,8 @@ function createInvBgDocument($invoiceData, $clientData, $itemsData, $is_person, 
             'invbg_id' => $data['id'],
             'date' => date('Y-m-d')
         ]);
-        getClient()->post('comments',[
-            'body' => json_encode( [
+        getClient()->post('comments', [
+            'body' => json_encode([
                 'type' => 'invoice',
                 'entity_id' => $data['id'],
                 'comment' => 'WHMCS ID: ' . $invoiceData->id
@@ -307,7 +308,7 @@ function getClientCustomFileds($clientData)
     ];
     if ($progress && $clientData->customFieldValues) {
         foreach ($clientData->customFieldValues as $field) {
-            if (isset($CUSTOM_FILEDS[$field->customField->fieldname])){
+            if (isset($CUSTOM_FILEDS[$field->customField->fieldname])) {
                 if ($CUSTOM_FILEDS[$field->customField->fieldname] == 'dds_field') {
                     $dds = $field->value;
                 }
